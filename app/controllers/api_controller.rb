@@ -22,8 +22,8 @@ class ApiController < ApplicationController
 	def transaction
 		# begin
 			service_fee_percent = ENV["BT_SERVICE_FEE"] || 7;
-			# p service_fee_percent;
-			service_fee_amount = (params[:amount] * service_fee_percent.to_f)/100.0;
+			p service_fee_percent;
+			service_fee_amount = (params[:amount] * service_fee_percent.to_f).to_f/100.0;
 			p service_fee_amount
 			result = Braintree::Transaction.sale(
 				:merchant_account_id => params[:merchant_account_id],
