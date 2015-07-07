@@ -22,8 +22,8 @@ build:
     # http://devcenter.wercker.com/docs/steps/index.html
     steps:
         - script:
-            name: install exec-js
-            code: gem install execjs
+            name: install rubyracer
+            code: gem install therubyracer
         - bundle-install
         - script:
             name: rspec
