@@ -149,6 +149,7 @@ PLATFORMS
 DEPENDENCIES
   braintree
   byebug
+  execjs
   jquery-rails
   pg
   rails (= 4.2.1)
