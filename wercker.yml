@@ -6,10 +6,10 @@
 box: wercker/rvm
 # You can also use services such as databases. Read more on our dev center:
 # http://devcenter.wercker.com/docs/services/index.html
-services:
-    - wercker/postgresql
 # services:
-#     - postgres
+#     - wercker/postgresql
+services:
+    - postgres
     # http://devcenter.wercker.com/docs/services/postgresql.html
 
     # - mongodb
