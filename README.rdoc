@@ -1,3 +1,5 @@
+[ ![Codeship Status for rishabhtayal/dev-braintree-backend-ios](https://codeship.com/projects/05b65fe0-070c-0133-3104-4e651cbad436/status?branch=master)](https://codeship.com/projects/89915)
+
 == README
 
 This README would normally document whatever steps are necessary to get the
