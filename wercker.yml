@@ -21,6 +21,9 @@ build:
     # Read more about steps on our dev center:
     # http://devcenter.wercker.com/docs/steps/index.html
     steps:
+        - script:
+            name: install exec-js
+            code: gem install execjs
         - bundle-install
         - script:
             name: rspec
