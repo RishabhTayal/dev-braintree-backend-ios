@@ -27,7 +27,7 @@ build:
             name: install rubyracer
             code: gem install therubyracer
         - bundle-install
-
+        
         -rails-database-yml:
             service: postgresql
 
@@ -37,7 +37,7 @@ build:
             RAILS_ENV='test' bundle exec rake parallel:create
             # RAILS_ENV='test' bundle exec rake parallel:prepare
             RAILS_ENV='test' bundle exec rake parallel:load_schema
-                
+
         - script:
             name: rspec
             code: bundle exec rspec
