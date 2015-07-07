@@ -23,12 +23,9 @@ build:
     # Read more about steps on our dev center:
     # http://devcenter.wercker.com/docs/steps/index.html
     steps:
-        - script:
-            name: install rubyracer
-            code: gem install therubyracer
         - bundle-install
         
-        -rails-database-yml:
+        - rails-database-yml:
             service: postgresql
 
         - script:
