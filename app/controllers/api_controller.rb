@@ -77,13 +77,12 @@ class ApiController < ApplicationController
 				:business => {
 					:legal_name => params[:shop_name]
 					},
-					:funding => {
-						:descriptor => "Bank Account",
-						:destination => Braintree::MerchantAccount::FundingDestination::Bank,
-						# :email => "funding@blueladders.com",
-						:account_number => params[:bank_account],
-						:routing_number => params[:routing_number]
-						},
+					# :funding => {
+					# 	:descriptor => "Bank Account",
+					# 	:destination => Braintree::MerchantAccount::FundingDestination::Bank,
+					# 	:account_number => params[:bank_account],
+					# 	:routing_number => params[:routing_number]
+					# 	},
 						:tos_accepted => true,
 						:master_merchant_account_id => "repairshift"
 						)
