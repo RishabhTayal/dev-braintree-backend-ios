@@ -21,25 +21,25 @@ class ApiController < ApplicationController
 
 	def transaction
 		# begin
-			service_fee_percent = ENV["BT_SERVICE_FEE"] || 7;
-			p service_fee_percent;
-			service_fee_amount = (params[:amount] * service_fee_percent.to_f).to_f/100.0;
-			p service_fee_amount
-			result = Braintree::Transaction.sale(
-				:merchant_account_id => params[:merchant_account_id],
-				:amount => params[:amount],
-				:payment_method_nonce => params[:nonce],
-				:service_fee_amount => service_fee_amount.to_f,
-				:options => {
-					:submit_for_settlement => true,
-					:store_in_vault_on_success => true
-				}
-				);
-			if result.success? == true
-				render :json => {'result' => result.transaction.status}
-			else
-				render :json => {"errors" => result.errors}, :status => 400
-			end
+		service_fee_percent = ENV["BT_SERVICE_FEE"] || 7;
+		p service_fee_percent;
+		service_fee_amount = (params[:amount] * service_fee_percent.to_f).to_f/100.0;
+		p service_fee_amount
+		result = Braintree::Transaction.sale(
+			:merchant_account_id => params[:merchant_account_id],
+			:amount => params[:amount],
+			:payment_method_nonce => params[:nonce],
+			:service_fee_amount => service_fee_amount.to_f,
+			:options => {
+				:submit_for_settlement => true,
+				:store_in_vault_on_success => true
+			}
+			);
+		if result.success? == true
+			render :json => {'result' => result.transaction.status}
+		else
+			render :json => {"errors" => result.errors}, :status => 400
+		end
 		# rescue Exception => e
 		# 	render :json => {"errors" => [e.message]}, :status => 500
 		# end
@@ -77,19 +77,21 @@ class ApiController < ApplicationController
 				:business => {
 					:legal_name => params[:shop_name]
 					},
-					# :funding => {
-					# 	:descriptor => "Bank Account",
-					# 	:destination => Braintree::MerchantAccount::FundingDestination::Bank,
-					# 	:account_number => params[:bank_account],
-					# 	:routing_number => params[:routing_number]
-					# 	},
+					:funding => {
+						:descriptor => "Bank Account",
+						:destination => Braintree::MerchantAccount::FundingDestination::Bank,
+						:account_number => params[:bank_account],
+						:routing_number => params[:routing_number]
+						},
 						:tos_accepted => true,
 						:master_merchant_account_id => "repairshift"
 						)
-		if result.success? == true
+		if result.success?
 			render :json => {"merchant_account_id" => result.merchant_account.id}
 		else
-			render :json => {"errors" => result.errors}
+			# render :json => {"errors" => result.errors}, :status => 400
+			p result.errors
+			render nothing: true
 		end
 	end
 
