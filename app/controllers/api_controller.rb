@@ -97,12 +97,6 @@ class ApiController < ApplicationController
 		end
 	end
 
-	def deletePaymentMethod
-		result = Braintree::PaymentMethod.delete(params[:token])
-		p result
-		render :json => {'result' => result}
-	end
-
 	def find_merchant
 		p params
 		account_id = params[:merchant_account_id]
