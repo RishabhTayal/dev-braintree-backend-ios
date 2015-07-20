@@ -22,7 +22,7 @@ class ApiController < ApplicationController
 	def transaction
 		# begin
 		service_fee_percent = ENV["BT_SERVICE_FEE"] || 7;
-		service_fee_amount = (params[:amount].to_f * service_fee_percent.to_f).to_f/100.0;
+		service_fee_amount = ((params[:amount].to_f * service_fee_percent.to_f).to_f/100.0).round(2);
 		p service_fee_amount
 		p params[:amount].to_f
 		result = Braintree::Transaction.sale(
