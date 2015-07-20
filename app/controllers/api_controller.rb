@@ -103,4 +103,24 @@ class ApiController < ApplicationController
 		merchant_account = Braintree::MerchantAccount.find(account_id)
 		render :json => merchant_account.funding_details
 	end
+
+	def update_merchant
+		result = Braintree::MerchantAccount.update(
+			params[:merchant_account_id],
+			{
+				'funding': {
+					'descriptor': 'Bank Account',
+					'destination': Braintree::MerchantAccount::FundingDestination::Bank,
+					'account_number': params[:bank_account],
+					'routing_number': params[:routing_number]
+				}
+			}
+			)
+		if result.success?
+			render :json => {'success': true}
+		else
+			p result.errors
+			render :json => {'success': false}
+		end
+	end
 end
