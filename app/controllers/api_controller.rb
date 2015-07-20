@@ -38,6 +38,7 @@ class ApiController < ApplicationController
 		if result.success? == true
 			render :json => {'result' => result.transaction.status}
 		else
+			p result.errors
 			render :json => {"errors" => result.errors}, :status => 400
 		end
 		# rescue Exception => e
