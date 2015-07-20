@@ -27,7 +27,7 @@ class ApiController < ApplicationController
 		p service_fee_amount
 		result = Braintree::Transaction.sale(
 			:merchant_account_id => params[:merchant_account_id],
-			:amount => params[:amount],
+			:amount => params[:amount].to_s,
 			:payment_method_nonce => params[:nonce],
 			:service_fee_amount => service_fee_amount.to_f,
 			:options => {
