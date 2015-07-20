@@ -22,12 +22,12 @@ class ApiController < ApplicationController
 	def transaction
 		# begin
 		service_fee_percent = ENV["BT_SERVICE_FEE"] || 7;
-		p service_fee_percent;
-		service_fee_amount = (params[:amount] * service_fee_percent.to_f).to_f/100.0;
+		service_fee_amount = (params[:amount].to_f * service_fee_percent.to_f).to_f/100.0;
 		p service_fee_amount
+		p params[:amount].to_f
 		result = Braintree::Transaction.sale(
 			:merchant_account_id => params[:merchant_account_id],
-			:amount => params[:amount].to_s,
+			:amount => params[:amount].to_f,
 			:payment_method_nonce => params[:nonce],
 			:service_fee_amount => service_fee_amount.to_f,
 			:options => {
@@ -39,7 +39,8 @@ class ApiController < ApplicationController
 			render :json => {'result' => result.transaction.status}
 		else
 			p result.errors
-			render :json => {"errors" => result.errors}, :status => 400
+			# render :json => {"errors" => result.errors}, :status => 400
+			render nothing: true
 		end
 		# rescue Exception => e
 		# 	render :json => {"errors" => [e.message]}, :status => 500
