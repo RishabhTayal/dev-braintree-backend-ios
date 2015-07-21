@@ -64,8 +64,8 @@ class ApiController < ApplicationController
 	def create_merchant
 		result = Braintree::MerchantAccount.create(
 			:individual => {
-				:first_name => params[:merchant_name], 
-				:last_name => params[:merchant_name],
+				:first_name => params[:merchant_first_name], 
+				:last_name => params[:merchant_last_name],
 				:email => params[:merchant_email],
 				:phone => params[:merchant_phone],
 				:date_of_birth => params[:merchant_dob],
