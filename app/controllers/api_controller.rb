@@ -68,12 +68,12 @@ class ApiController < ApplicationController
 				:last_name => params[:merchant_name],
 				:email => params[:merchant_email],
 				:phone => params[:merchant_phone],
-				:date_of_birth => "1980-02-20",
+				:date_of_birth => params[:merchant_dob],
 				:address => {
-					:street_address => "111 Main St",
-					:locality => "Chicago",
-					:region => "IL",
-					:postal_code => "60622"
+					:street_address => params[:merchant_address_street],
+					:locality => params[:merchant_address_locality],
+					:region => params[:merchant_address_region],
+					:postal_code => params[:merchant_address_postal]
 				}
 				},
 				:business => {
@@ -101,6 +101,8 @@ class ApiController < ApplicationController
 		p params
 		account_id = params[:merchant_account_id]
 		merchant_account = Braintree::MerchantAccount.find(account_id)
+		p merchant_account.individual_details
+		p merchant_account.funding_details.account_number_last_4
 		render :json => {'result': ['account_number': merchant_account.funding_details.account_number_last_4, 'descriptor': merchant_account.funding_details.descriptor]}
 	end
 
