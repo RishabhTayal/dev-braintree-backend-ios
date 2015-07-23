@@ -108,9 +108,9 @@ class ApiController < ApplicationController
 
 	def update_merchant
 		parameters = {
-			'funding': {
+			'funding' => {
 				'descriptor' => 'Bank Account',
-				'destination': Braintree::MerchantAccount::FundingDestination::Bank,
+				'destination' => Braintree::MerchantAccount::FundingDestination::Bank,
 				'account_number' => params[:bank_account],
 				'routing_number' => params[:routing_number]
 				}
