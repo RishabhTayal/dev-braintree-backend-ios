@@ -32,19 +32,35 @@ class ApiController < ApplicationController
 			:service_fee_amount => service_fee_amount.to_f,
 			:options => {
 				:submit_for_settlement => true,
-				:store_in_vault_on_success => true
+				:store_in_vault_on_success => true,
+				:hold_in_escrow => true
 			}
 			);
 		if result.success? == true
-			render :json => {'result' => result.transaction.status}
+			render :json => {'result' => result.transaction.status, 'transaction_id' => result.transaction.id}
 		else
 			p result.errors
-			# render :json => {"errors" => result.errors}, :status => 400
-			render nothing: true
+			render :json => {"errors" => result.errors}, :status => 400
+			# render nothing: true
 		end
 		# rescue Exception => e
 		# 	render :json => {"errors" => [e.message]}, :status => 500
 		# end
+	end
+
+	def release_from_escrow
+		result = Braintree::Transaction.release_from_escrow(params[:transaction_id])
+		if result.success?
+			render :json => result
+		else
+			p result.errors
+			render nothing: true
+		end
+	end
+
+	def find_transaction
+		transaction = Braintree::Transaction.find(params[:transaction_id])
+		render :json => {'result' => transaction.escrow_status}
 	end
 
 	def create_customer
