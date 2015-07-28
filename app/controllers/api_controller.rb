@@ -50,12 +50,14 @@ class ApiController < ApplicationController
 
 	def release_from_escrow
 		result = Braintree::Transaction.release_from_escrow(params[:transaction_id])
-		if result.success?
-			render :json => result
-		else
-			p result.errors
-			render nothing: true
-		end
+		p result
+		render :json => result
+		# if result.success?
+		# 	render :json => result
+		# else
+		# 	p result.errors
+		# 	render nothing: true
+		# end
 	end
 
 	def find_transaction
