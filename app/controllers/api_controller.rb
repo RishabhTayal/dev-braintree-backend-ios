@@ -40,8 +40,8 @@ class ApiController < ApplicationController
 			render :json => {'result' => result.transaction.status, 'transaction_id' => result.transaction.id}
 		else
 			p result.errors
-			# render :json => {"errors" => result.errors}, :status => 400
-			render nothing: true
+			render :json => {"errors" => result.errors}, :status => 400
+			# render nothing: true
 		end
 		# rescue Exception => e
 		# 	render :json => {"errors" => [e.message]}, :status => 500
