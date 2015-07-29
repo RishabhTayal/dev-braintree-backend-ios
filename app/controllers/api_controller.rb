@@ -40,8 +40,8 @@ class ApiController < ApplicationController
 			render :json => {'result' => result.transaction.status, 'transaction_id' => result.transaction.id}
 		else
 			p result.errors
-			render :json => {"errors" => result.errors}, :status => 400
-			# render nothing: true
+			# render :json => {"errors" => result.errors}, :status => 400
+			render nothing: true
 		end
 		# rescue Exception => e
 		# 	render :json => {"errors" => [e.message]}, :status => 500
@@ -104,7 +104,7 @@ class ApiController < ApplicationController
 						:routing_number => params[:routing_number]
 						},
 						:tos_accepted => true,
-						:master_merchant_account_id => "repairshift"
+						:master_merchant_account_id => ENV["BT_MERCHANT_ACCOUNT_ID"]
 						)
 		if result.success?
 			render :json => {"merchant_account_id" => result.merchant_account.id}
